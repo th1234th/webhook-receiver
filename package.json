@@ -1,0 +1,24 @@
+{
+  "name": "webhook_receiver",
+  "version": "1.0.0",
+  "description": "## How do I use this template?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microservices-march/webhook_receiver.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/microservices-march/webhook_receiver/issues"
+  },
+  "homepage": "https://github.com/microservices-march/webhook_receiver#readme",
+  "dependencies": {
+    "@octokit/webhooks": "^10.6.2",
+    "convict": "^6.2.4"
+  }
+}
