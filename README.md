@@ -8,9 +8,9 @@ This project requires either `NodeJS` or `Docker` to run. It also requires you t
 
 ### NodeJS
 
-This project uses `NodeJS`. The current version is specified in [`.tool-versions`](https://github.com/microservices-march/webhook_receiver/blob/main/.tool-versions). `NodeJS` is a rapidly evolving language which makes it critical to explicitly define which version is being used to avoid any potential errors due to mismatched versions.
+This project uses `NodeJS`. The current version is specified in [`.tool-versions`](https://github.com/microservices-march/webhook-receiver/blob/main/.tool-versions). `NodeJS` is a rapidly evolving language which makes it critical to explicitly define which version is being used to avoid any potential errors due to mismatched versions.
 
-We recommended that you use [asdf](https://asdf-vm.com/guide/getting-started.html) to manage your local `NodeJS` installation. Once you have `asdf` installed, you can run `asdf install` to automatically install the version of `NodeJS` specified in [`.tool-versions`](https://github.com/microservices-march/webhook_receiver/blob/main/.tool-versions).
+We recommended that you use [asdf](https://asdf-vm.com/guide/getting-started.html) to manage your local `NodeJS` installation. Once you have `asdf` installed, you can run `asdf install` to automatically install the version of `NodeJS` specified in [`.tool-versions`](https://github.com/microservices-march/webhook-receiver/blob/main/.tool-versions).
 
 <details>
 <summary>
@@ -31,10 +31,12 @@ You can run this project on a container using `Docker`. This will let you build 
 
 ### Smee
 
+When running this project locally, you'll need a method to expose it to the internet in order to receive webhooks from GitHub. [smee.io/new](https://smee.io/) is a webhook proxy service that provides a publically accessible target to which GitHub will send webhooks which will then get proxied to your locally running application.
+
 Open up [smee.io](https://smee.io/) on a web browser and select "Start a new channel" (alternatively, navigate to [smee.io/new](https://smee.io/) directly). Make a note of the Webhook Proxy URL that pops up at the top of the screen. For ease of use, export it as an ENV variable:
 
 ```bash
-export SMEE=<Webhook_Proxy_URL>
+export SMEE_URL=<Webhook_Proxy_URL>
 ```
 
 ## Setup
@@ -55,16 +57,34 @@ Navigate to the root directory of this project and install the various node modu
 npm install
 ```
 
-Then, start the webhook receiver service:
+Then, assuming you have set the `$SMEE_URL` environment variable by exporting the value (as shown above), start the webhook receiver service:
 
 ```bash
-node index.mjs --smee $SMEE
+node index.mjs
 ```
 
-By default, the webhook receiver service will listen on port 3000. If you want to change the default value, use the following command instead:
+Alternatively, you can use the `--smee_url` flag while starting the webhook receiver service:
 
 ```bash
-node index.mjs --smee $SMEE --port <PORT>
+node index.mjs --smee_url $SMEE_URL
+```
+
+By default, the webhook receiver service will listen on port 3000. If you want to change the default value, set the `$PORT` environment variable:
+
+```bash
+export PORT=<PORT>
+```
+
+Or use the `--port` flag while starting the webhook receiver service:
+
+```bash
+node index.mjs --port $PORT
+```
+
+You can also set both the `$SMEE_URL` or `$PORT` environment variables to change both values simultaneously, or use both flags simultaneously:
+
+```bash
+node index.mjs --smee_url $SMEE_URL --port $PORT
 ```
 
 ### Docker
@@ -78,7 +98,7 @@ docker build -t webhook_receiver .
 Once the image is built, run the image to start the webhook receiver service:
 
 ```bash
-docker run --rm -p 3000:3000 -e SMEE=$SMEE webhook_receiver
+docker run --rm -p 3000:3000 -e SMEE_URL=$SMEE_URL webhook_receiver
 ```
 
 Do note you can change the local `port` the service is mapped to if you so wish by changing the first parameter of the `-p` flag (e.g. `-p 4000:3000` will map the service to the local `port` 4000).
@@ -86,7 +106,7 @@ Do note you can change the local `port` the service is mapped to if you so wish 
 You can also change the `port` at which the webhook receiver service will listen on internally by using the `PORT` environment variable at runtime:
 
 ```bash
-docker run --rm -p 3000:<PORT> -e SMEE=$SMEE -e PORT=<PORT> webhook_receiver
+docker run --rm -p 3000:<PORT> -e SMEE_URL=$SMEE_URL -e PORT=<PORT> webhook_receiver
 ```
 
 ## Usage
@@ -97,7 +117,7 @@ Once the webhook receiver service is running:
 2. Go to your repository settings
 3. Under the `Code and automation` submenu, select `Webhooks`
 4. Select `Add webhook`:
-   1. For your Payload URL, use your Webhook Proxy URL, $SMEE
+   1. For your Payload URL, use your Webhook Proxy URL, $SMEE_URL
    2. For your secret, use `dogburger`
    3. Choose which types of events you would like to trigger this webhook
    4. Select `Add webhook` again to create the webhook trigger
@@ -122,10 +142,10 @@ If you want to cleanup any artifacts resulting from running this project, run:
 
 ## Development
 
-Read the [`CONTRIBUTING.md`](https://github.com/microservices-march/webhook_receiver/blob/main/CONTRIBUTING.md) file for instructions on how to best contribute to this repository.
+Read the [`CONTRIBUTING.md`](https://github.com/microservices-march/webhook-receiver/blob/main/CONTRIBUTING.md) file for instructions on how to best contribute to this repository.
 
 ## License
 
-[Apache License, Version 2.0](https://github.com/microservices-march/webhook_receiver/blob/main/LICENSE)
+[Apache License, Version 2.0](https://github.com/microservices-march/webhook-receiver/blob/main/LICENSE)
 
 &copy; [F5 Networks, Inc.](https://www.f5.com/) 2022

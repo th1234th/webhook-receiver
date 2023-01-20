@@ -1,4 +1,5 @@
-FROM node:19.3.0-bullseye-slim
+ARG NODE_VERSION=19.3.0
+FROM node:${NODE_VERSION}-bullseye-slim
 
 WORKDIR /usr/src/app
 COPY --chown=node:node . .

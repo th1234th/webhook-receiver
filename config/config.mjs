@@ -12,8 +12,8 @@ const config = convict({
     doc: "The smee.io url to use for proxying webhooks",
     format: String,
     default: null,
-    env: "SMEE",
-    arg: "smee",
+    env: "SMEE_URL",
+    arg: "smee_url",
   },
 });
 

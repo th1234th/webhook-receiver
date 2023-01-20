@@ -6,7 +6,7 @@ import config from "./config/config.mjs";
 
 // Set constants based on environment variables
 const port = config.get("port");
-const webhookProxyURL = config.get("smee");
+const webhookProxyURL = config.get("smee_url");
 
 // Create a new SmeeClient with the given smee.io URL
 const smee = new SmeeClient({
@@ -42,8 +42,6 @@ webhooks.onAny(({ name, payload }) => {
   console.log("Webhook event received:", name);
   console.log("Webhook payload:", payload);
 });
-
-webhooks.onAny;
 
 // Start forwarding events
 const events = smee.start();

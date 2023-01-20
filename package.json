@@ -1,5 +1,5 @@
 {
-  "name": "webhook_receiver",
+  "name": "webhook-receiver",
   "version": "0.0.1",
   "description": "Webhook receiver service for the NGINX Microservices March demo architecture",
   "engines": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/microservices-march/webhook_receiver.git"
+    "url": "git+https://github.com/microservices-march/webhook-receiver.git"
   },
   "keywords": [
     "webhook",
@@ -22,12 +22,19 @@
     "demo",
     "architecture"
   ],
-  "author": "Alessandro Fael Garcia",
+  "contributors": [
+    {
+      "name": "Alessandro Fael Garcia"
+    },
+    {
+      "name": "Javier Evans"
+    }
+  ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/microservices-march/webhook_receiver/issues"
+    "url": "https://github.com/microservices-march/webhook-receiver/issues"
   },
-  "homepage": "https://github.com/microservices-march/webhook_receiver#readme",
+  "homepage": "https://github.com/microservices-march/webhook-receiver#readme",
   "dependencies": {
     "@octokit/webhooks": "^10.6.2",
     "convict": "^6.2.4",

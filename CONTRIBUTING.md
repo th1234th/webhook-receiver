@@ -1,6 +1,6 @@
 # Contributing Guidelines
 
-The following is a set of guidelines for contributing to the webhook_receiver. We really appreciate that you are considering contributing!
+The following is a set of guidelines for contributing to this repository. We really appreciate that you are considering contributing!
 
 #### Table Of Contents
 
@@ -10,11 +10,11 @@ The following is a set of guidelines for contributing to the webhook_receiver. W
 
 [Code Guidelines](#code-guidelines)
 
-[Code of Conduct](https://github.com/microservices-march/webhook_receiver/blob/main/CODE_OF_CONDUCT.md)
+[Code of Conduct](https://github.com/microservices-march/webhook-receiver/blob/main/CODE_OF_CONDUCT.md)
 
 ## Getting Started
 
-Follow our [Installation Guide](https://github.com/microservices-march/webhook_receiver/blob/main/README.md#Installation) to get the webhook_receiver up and running.
+Follow our [Installation Guide](https://github.com/microservices-march/webhook-receiver/blob/main/README.md#Installation) to get this repository up and running.
 
 <!-- ### Project Structure (OPTIONAL) -->
 
@@ -31,7 +31,7 @@ To suggest a feature or enhancement, please create an issue on GitHub with the l
 ### Open a Pull Request
 
 * Fork the repo, create a branch, implement your changes, add any relevant tests, submit a PR when your changes are **tested** and ready for review.
-* Fill in [our pull request template](https://github.com/microservices-march/webhook_receiver/blob/main/.github/pull_request_template.md).
+* Fill in [our pull request template](https://github.com/microservices-march/webhook-receiver/blob/main/.github/pull_request_template.md).
 
 Note: if you'd like to implement a new feature, please consider creating a feature request issue first to start a discussion about the feature.
 
