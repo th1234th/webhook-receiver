@@ -25,6 +25,8 @@ This is helpful in getting closer to [dev/prod parity](https://12factor.net/dev-
 This way, if we use `asdf` we're guaranteed to be developing, testing, and releasing to a consistent version of `NodeJS`.
 </details>
 
+You can also install NodeJS by other means - just reference the version number in the `.tool-versions` file.
+
 ### Docker
 
 You can run this project on a container using `Docker`. This will let you build a simple reproducible image and forget about setting up your local environment. Instructions on how to install `Docker` can be found in the [`Docker` website](https://docs.docker.com/get-docker/).
