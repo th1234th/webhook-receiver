@@ -1,0 +1,24 @@
+# Docker files #
+################
+Dockerfile
+.dockerignore
+
+# Git files #
+#############
+.git*
+
+# Documentation files #
+#######################
+*.md
+LICENSE
+
+# Build files #
+###############
+*.log
+node_modules
+
+# OS files #
+#############
+Thumbs.db
+.DS_Store
+.vscode
