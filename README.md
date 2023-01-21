@@ -111,7 +111,7 @@ You can also change the `port` at which the webhook receiver service will listen
 docker run --rm -p 3000:<PORT> -e SMEE_URL=$SMEE_URL -e PORT=<PORT> webhook_receiver
 ```
 
-## Usage
+## Using the service
 
 Once the webhook receiver service is running:
 
@@ -150,4 +150,4 @@ Read the [`CONTRIBUTING.md`](https://github.com/microservices-march/webhook-rece
 
 [Apache License, Version 2.0](https://github.com/microservices-march/webhook-receiver/blob/main/LICENSE)
 
-&copy; [F5 Networks, Inc.](https://www.f5.com/) 2022
+&copy; [F5 Networks, Inc.](https://www.f5.com/) 2023
