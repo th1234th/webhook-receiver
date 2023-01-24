@@ -1,24 +1,47 @@
 {
-  "name": "webhook_receiver",
-  "version": "1.0.0",
-  "description": "## How do I use this template?",
-  "main": "index.js",
+  "name": "webhook-receiver",
+  "description": "Webhook receiver service for the NGINX Microservices March demo architecture",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=19.0.0"
+  },
+  "type": "module",
+  "main": "index.mjs",
   "scripts": {
+    "start": "node index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/microservices-march/webhook_receiver.git"
+    "url": "git+https://github.com/microservices-march/webhook-receiver.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "webhook",
+    "receiver",
+    "microservices",
+    "demo",
+    "architecture"
+  ],
+  "contributors": [
+    {
+      "name": "Alessandro Fael Garcia"
+    },
+    {
+      "name": "Javier Evans"
+    }
+  ],
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/microservices-march/webhook_receiver/issues"
+    "url": "https://github.com/microservices-march/webhook-receiver/issues"
   },
-  "homepage": "https://github.com/microservices-march/webhook_receiver#readme",
+  "homepage": "https://github.com/microservices-march/webhook-receiver#readme",
   "dependencies": {
     "@octokit/webhooks": "^10.6.2",
-    "convict": "^6.2.4"
+    "convict": "^6.2.4",
+    "eventsource": "^2.0.2",
+    "smee-client": "^1.2.3"
+  },
+  "devDependencies": {
+    "prettier": "2.8.3"
   }
 }

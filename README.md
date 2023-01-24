@@ -1,54 +1,154 @@
-# NGINX Template Repository
+# Webhook Receiver
 
-## How do I use this template?
-
-**DO NOT FORK** -- this template is meant to be used from the **[`Use this template`](https://github.com/nginxinc/template-repository/generate)** feature.
-
-1. Click on **[`Use this template`](https://github.com/nginxinc/template-repository/generate)**
-2. Give a name to your project
-3. Wait until the first run of CI finishes (Github Actions will process the template and commit to your new repo)
-4. Clone your new project and happy coding!
-
-**NOTE**: **WAIT** until the first CI run on GitHub Actions before cloning your new project.
-
-## What is included on this template?
-
-This template includes all the scaffolding you need to get started on a standards compliant NGINX repository:
-
-* Issue and PR templates
-* Contributing guidelines
-* Support guidelines
-* Security guidelines for reporting major vulnerabilities
-* Standard `.gitignore` with minimal defaults
-* NGINX Code of Conduct
-* Standard license for NGINX OSS projects
-* Changelog placeholder
-* Codeowners placeholder
-
----
-
-<!--  DELETE THE LINES ABOVE THIS AND WRITE YOUR PROJECT README BELOW -->
-
-# webhook_receiver
+This is a webhook receiver for the NGINX Microservices March demo architecture.
 
 ## Requirements
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam elit turpis, varius et arcu elementum, viverra rhoncus sem. Aliquam nec sodales magna, et egestas enim. Mauris lobortis ultrices euismod. Pellentesque in arcu lacus. Mauris cursus laoreet nulla, ac vehicula est. Vestibulum eu mauris quis lorem consectetur aliquam ac nec quam. Vestibulum commodo pharetra mi, at bibendum neque faucibus ut. Mauris et tortor sed sem consectetur eleifend ut non magna. Praesent feugiat placerat nibh, varius viverra orci bibendum sed. Vestibulum dapibus ex ut pulvinar facilisis. Quisque sodales enim et augue tempor mattis. Suspendisse finibus congue felis, ac blandit ligula. Praesent condimentum ultrices odio quis semper. Nunc ultrices, nibh quis mattis pellentesque, elit nulla bibendum felis, quis dapibus erat turpis ac urna.
+This project requires either `NodeJS` or `Docker` to run. It also requires you to create a Smee channel on [smee.io](https://smee.io/).
 
-## Installation
+### NodeJS
 
-Duis sit amet sapien vel velit ornare vulputate. Nulla rutrum euismod risus ac efficitur. Curabitur in sagittis elit, a semper leo. Suspendisse malesuada aliquam velit, eu suscipit lorem vehicula at. Proin turpis lacus, semper in placerat in, accumsan non ipsum. Cras euismod, elit eget pretium laoreet, tortor nulla finibus tortor, nec hendrerit elit turpis ut eros. Quisque congue nisi id mauris molestie, eu condimentum dolor rutrum. Nullam eleifend elit ac lobortis tristique. Pellentesque nec tellus non mauris aliquet commodo a eu elit. Ut at feugiat metus, at tristique mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+This project uses `NodeJS`. The current version is specified in [`.tool-versions`](https://github.com/microservices-march/webhook-receiver/blob/main/.tool-versions). `NodeJS` is a rapidly evolving language which makes it critical to explicitly define which version is being used to avoid any potential errors due to mismatched versions.
 
-## Usage
+We recommended that you use [asdf](https://asdf-vm.com/guide/getting-started.html) to manage your local `NodeJS` installation. Once you have `asdf` installed, you can run `asdf install` to automatically install the version of `NodeJS` specified in [`.tool-versions`](https://github.com/microservices-march/webhook-receiver/blob/main/.tool-versions).
 
-Maecenas at vehicula justo. Suspendisse posuere elementum elit vel posuere. Etiam quis pulvinar massa. Integer tempor semper risus, vitae maximus eros ullamcorper vitae. In egestas, ex vitae gravida sodales, ipsum dolor varius est, et cursus lorem dui a mi. Morbi faucibus ut nisi id faucibus. Sed quis ullamcorper ex. In et dolor id nunc interdum suscipit.
+<details>
+<summary>
+
+#### Why `asdf`?
+</summary>
+In a microservices environment, you may have to work on projects that use different versions of a runtime like `NodeJS`, or use a different language altogether!
+
+[asdf](https://asdf-vm.com/guide/getting-started.html) is a single tool that lets you manage multiple versions of different languages in isolation and will automatically install and/or switch to the required runtime/version in any directory that has a `.tool-versions` file.
+
+This is helpful in getting closer to [dev/prod parity](https://12factor.net/dev-prod-parity) in a microservices environment.
+
+This way, if we use `asdf` we're guaranteed to be developing, testing, and releasing to a consistent version of `NodeJS`.
+</details>
+
+You can also install NodeJS by other means - just reference the version number in the `.tool-versions` file.
+
+### Docker
+
+You can run this project on a container using `Docker`. This will let you build a simple reproducible image and forget about setting up your local environment. Instructions on how to install `Docker` can be found in the [`Docker` website](https://docs.docker.com/get-docker/).
+
+### Smee
+
+When running this project locally, you'll need a method to expose it to the internet in order to receive webhooks from GitHub. [smee.io/new](https://smee.io/) is a webhook proxy service that provides a publically accessible target to which GitHub will send webhooks which will then get proxied to your locally running application.
+
+Open up [smee.io](https://smee.io/) on a web browser and select "Start a new channel" (alternatively, navigate to [smee.io/new](https://smee.io/) directly). Make a note of the Webhook Proxy URL that pops up at the top of the screen. For ease of use, export it as an ENV variable:
+
+```bash
+export SMEE_URL=<Webhook_Proxy_URL>
+```
+
+## Setup
+
+The steps required to setup this project depend on whether you want to run the project locally using `NodeJS`, or run it via `Docker`.
+
+The first step in either case is to clone this repo:
+
+```bash
+git clone https://github.com/microservices-march/webhook_receiver
+```
+
+### NodeJS
+
+Navigate to the root directory of this project and install the various node modules required to run this project:
+
+```bash
+npm install
+```
+
+Then, assuming you have set the `$SMEE_URL` environment variable by exporting the value (as shown above), start the webhook receiver service:
+
+```bash
+node index.mjs
+```
+
+Alternatively, you can use the `--smee_url` flag while starting the webhook receiver service:
+
+```bash
+node index.mjs --smee_url $SMEE_URL
+```
+
+By default, the webhook receiver service will listen on port 3000. If you want to change the default value, set the `$PORT` environment variable:
+
+```bash
+export PORT=<PORT>
+```
+
+Or use the `--port` flag while starting the webhook receiver service:
+
+```bash
+node index.mjs --port $PORT
+```
+
+You can also set both the `$SMEE_URL` or `$PORT` environment variables to change both values simultaneously, or use both flags simultaneously:
+
+```bash
+node index.mjs --smee_url $SMEE_URL --port $PORT
+```
+
+### Docker
+
+Navigate to the root directory of this project and build a `Docker` image using the provided [`Dockerfile`](https://github.com/microservices-march/webhook_receiver/blob/main/Dockerfile):
+
+```bash
+docker build -t webhook_receiver .
+```
+
+Once the image is built, run the image to start the webhook receiver service:
+
+```bash
+docker run --rm -p 3000:3000 -e SMEE_URL=$SMEE_URL webhook_receiver
+```
+
+Do note you can change the local `port` the service is mapped to if you so wish by changing the first parameter of the `-p` flag (e.g. `-p 4000:3000` will map the service to the local `port` 4000).
+
+You can also change the `port` at which the webhook receiver service will listen on internally by using the `PORT` environment variable at runtime:
+
+```bash
+docker run --rm -p 3000:<PORT> -e SMEE_URL=$SMEE_URL -e PORT=<PORT> webhook_receiver
+```
+
+## Using the service
+
+Once the webhook receiver service is running:
+
+1. Open a web browser session to your GitHub repository of choice (you need to have admin permissions for the aforementioned repository)
+2. Go to your repository settings
+3. Under the `Code and automation` submenu, select `Webhooks`
+4. Select `Add webhook`:
+   1. For your Payload URL, use your Webhook Proxy URL, $SMEE_URL
+   2. For your secret, use `dogburger`
+   3. Choose which types of events you would like to trigger this webhook
+   4. Select `Add webhook` again to create the webhook trigger
+5. Trigger one of the types of events you selected in the previous step
+6. If you have setup everything correctly, you should now see the results of the webhook on the terminal you used to launch the service.
+
+## Cleanup
+
+If you want to cleanup any artifacts resulting from running this project, run:
+
+* If you used `NodeJS` to run the project:
+
+  ```bash
+  rm -rf node_modules
+  ```
+
+* If you used `Docker` to run the project:
+
+  ```bash
+  docker rmi webhook_receiver
+  ```
 
 ## Development
 
-Read the [`CONTRIBUTING.md`](https://github.com/microservices-march/webhook_receiver/blob/main/CONTRIBUTING.md) file.
+Read the [`CONTRIBUTING.md`](https://github.com/microservices-march/webhook-receiver/blob/main/CONTRIBUTING.md) file for instructions on how to best contribute to this repository.
 
 ## License
 
-[Apache License, Version 2.0](https://github.com/microservices-march/webhook_receiver/blob/main/LICENSE)
+[Apache License, Version 2.0](https://github.com/microservices-march/webhook-receiver/blob/main/LICENSE)
 
-&copy; [F5 Networks, Inc.](https://www.f5.com/) 2022
+&copy; [F5 Networks, Inc.](https://www.f5.com/) 2023
