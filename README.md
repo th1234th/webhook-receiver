@@ -14,6 +14,7 @@ We recommended that you use [asdf](https://asdf-vm.com/guide/getting-started.htm
 
 <details>
 <summary>
+
 #### Why `asdf`?
 </summary>
 In a microservices environment, you may have to work on projects that use different versions of a runtime like `NodeJS`, or use a different language altogether!
