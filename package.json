@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/microservices-march/webhook-receiver#readme",
   "dependencies": {
-    "@octokit/webhooks": "^10.6.2",
+    "@octokit/webhooks": "^10.7.0",
     "convict": "^6.2.4",
     "eventsource": "^2.0.2",
     "smee-client": "^1.2.3"
